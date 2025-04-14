@@ -242,3 +242,18 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+# Add permission query mapping
+# from .permissions import get_material_request_conditions
+
+permission_query_conditions = {
+    "Material Request": "hdsec.mrf.get_permission_query_conditions"
+}
+# permission_query_conditions = {
+#     "Material Request": "hdsec.mrsf.get_warehouse_based_material_request_conditions"
+# }
+
+doc_events = {
+    "Material Request": {
+        "validate": "hdsec.workflow_updates.update_workflow_fields"
+    }
+}
