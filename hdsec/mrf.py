@@ -44,7 +44,7 @@ def get_permission_query_conditions(user=None):
             SELECT for_value 
             FROM `tabUser Permission`
             WHERE user=%s 
-            AND allow='Warehouse'
+            AND allow='Warehouse Type'
             AND (applicable_for IS NULL OR applicable_for='' OR applicable_for='Material Request')
         """, user)
 

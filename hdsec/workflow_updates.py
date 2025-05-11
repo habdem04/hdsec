@@ -107,9 +107,19 @@ def update_workflow_fields(doc, method):
             frappe.msgprint("Update skipped for stock rejection: Insufficient role.")
             return
 
-    # 8. Approved/Rejected PR – require "Purchase Manager"
-    elif doc.workflow_state in ["Approved PR", "Rejected PR"]:
-        if has_role(["Purchase Manager"]):
+    # # 8. Approved/Rejected PR – require "Purchase Manager"
+    # elif doc.workflow_state in ["Approved PR", "Rejected PR"]:
+    #     if has_role(["Purchase Manager"]):
+    #         doc.set("custom_pr_approval_status", doc.workflow_state)
+    #         doc.set("custom_pr_approval_date", current_datetime)
+    #         doc.set("custom_pr_approved_by", employee_full_name)
+    #         doc.set("custom_pr_approved_by_signature", employee_user_signature)
+    #     else:
+    #         frappe.msgprint("Update skipped for PR approval/rejection: Insufficient role (requires Purchase Manager).")
+    #         return
+ # 8. Approved/Rejected PR – require "Purchase Manager"
+    elif doc.workflow_state in ["Budget Approved", "Budget Rejected"]:
+        if has_role(["Budget Control"]):
             doc.set("custom_pr_approval_status", doc.workflow_state)
             doc.set("custom_pr_approval_date", current_datetime)
             doc.set("custom_pr_approved_by", employee_full_name)
@@ -117,7 +127,6 @@ def update_workflow_fields(doc, method):
         else:
             frappe.msgprint("Update skipped for PR approval/rejection: Insufficient role (requires Purchase Manager).")
             return
-
     # 9. Authorized/Unauthorized PR – require "GM"
     elif doc.workflow_state in ["Authorized PR", "Unauthorized PR"]:
         if has_role(["GM"]):
